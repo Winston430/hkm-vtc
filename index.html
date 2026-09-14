@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Adaptive favicon: recolors itself for light / dark browser themes -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- If you prefer your own logo.png, make two versions and use these instead:
+    <link rel="icon" type="image/png" href="/logo-dark.png"  media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" href="/logo-white.png" media="(prefers-color-scheme: dark)" />
+    -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <title>HKM VTC</title>
+    <script>
+      // apply saved theme before paint to avoid a flash
+      (function () {
+        try {
+          var m = localStorage.getItem('hkm.theme') || 'system';
+          var dark = m === 'dark' || (m === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
