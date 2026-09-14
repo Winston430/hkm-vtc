@@ -49,7 +49,7 @@ export interface DashboardData {
   todaysPayments: Payment[]
 }
 
-function scoped<T>(name: string, role: Role, branchId: string | null): Query {
+function scoped(name: string, role: Role, branchId: string | null): Query {
   const base = collection(db, name)
   return role === 'admin'
     ? (base as unknown as Query)
