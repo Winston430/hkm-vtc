@@ -41,7 +41,7 @@ export default function Login() {
   }
 
   const inputClass =
-    'w-full text-[13.5px] font-medium text-ink bg-surface-soft rounded-md py-3.5 pl-[42px] pr-3.5 outline-none transition placeholder:text-ink-muted focus:bg-white focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
+    'w-full text-[13.5px] font-medium text-ink bg-surface-soft rounded-md py-3.5 pl-[42px] pr-3.5 outline-none transition placeholder:text-ink-muted focus:bg-surface focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
 
   return (
     <AuthShell>
@@ -103,7 +103,7 @@ export default function Login() {
               onChange={(e) => setRemember(e.target.checked)}
               className="hidden peer"
             />
-            <span className="w-[17px] h-[17px] rounded-[5px] bg-surface-soft grid place-items-center text-transparent peer-checked:bg-ink peer-checked:text-white transition">
+            <span className="w-[17px] h-[17px] rounded-[5px] bg-surface-soft grid place-items-center text-transparent peer-checked:bg-primary peer-checked:text-on-primary transition">
               <Check size={11} weight="bold" />
             </span>
             <span className="text-[12px] font-semibold text-ink-secondary">
@@ -121,7 +121,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full text-sm font-bold text-white bg-ink rounded-md min-h-[50px] flex items-center justify-center gap-2 transition hover:bg-black disabled:opacity-80"
+          className="w-full text-sm font-bold text-on-primary bg-primary rounded-md min-h-[50px] flex items-center justify-center gap-2 transition hover:opacity-90 disabled:opacity-80"
         >
           {loading ? (
             <Wave className="h-4 w-10 text-white" />

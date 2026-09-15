@@ -17,7 +17,7 @@ import { formatMoney, formatDate } from '../../lib/format'
 import { printReceipt } from '../../lib/print'
 
 const inputClass =
-  'w-full text-[13px] font-medium text-ink bg-surface-soft rounded-md py-2.5 px-3 outline-none transition focus:bg-white focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
+  'w-full text-[13px] font-medium text-ink bg-surface-soft rounded-md py-2.5 px-3 outline-none transition focus:bg-surface focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
 
 export default function StudentDetail() {
   const { id = '' } = useParams()
@@ -177,11 +177,11 @@ export default function StudentDetail() {
         <div className="flex items-center justify-between mb-4">
           <div className="text-[13px] font-extrabold">{t('detail.personal')}</div>
           {!editing ? (
-            <button onClick={() => setEditing(true)} className="inline-flex items-center gap-1.5 bg-surface-soft hover:bg-[#EEE] rounded-[20px] px-3.5 py-2 text-[12px] font-bold text-ink-secondary transition"><PencilSimple size={14} /> {t('detail.edit')}</button>
+            <button onClick={() => setEditing(true)} className="inline-flex items-center gap-1.5 bg-surface-soft hover:bg-hover rounded-[20px] px-3.5 py-2 text-[12px] font-bold text-ink-secondary transition"><PencilSimple size={14} /> {t('detail.edit')}</button>
           ) : (
             <div className="flex gap-2">
-              <button onClick={() => setEditing(false)} disabled={saving} className="inline-flex items-center gap-1.5 bg-surface-soft hover:bg-[#EEE] rounded-[20px] px-3.5 py-2 text-[12px] font-bold text-ink-secondary transition"><X size={14} /> {t('detail.cancel')}</button>
-              <button onClick={save} disabled={saving} className="inline-flex items-center justify-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2 min-w-[130px] text-[12px] font-bold hover:bg-black transition disabled:opacity-60">{saving ? <Wave className="h-3.5 w-8 text-white" /> : (<><Check size={14} /> {t('detail.save')}</>)}</button>
+              <button onClick={() => setEditing(false)} disabled={saving} className="inline-flex items-center gap-1.5 bg-surface-soft hover:bg-hover rounded-[20px] px-3.5 py-2 text-[12px] font-bold text-ink-secondary transition"><X size={14} /> {t('detail.cancel')}</button>
+              <button onClick={save} disabled={saving} className="inline-flex items-center justify-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2 min-w-[130px] text-[12px] font-bold hover:opacity-90 transition disabled:opacity-60">{saving ? <Wave className="h-3.5 w-8 text-white" /> : (<><Check size={14} /> {t('detail.save')}</>)}</button>
             </div>
           )}
         </div>
@@ -209,7 +209,7 @@ export default function StudentDetail() {
               <StatusBadge kind="paid" label={t('detail.fullyPaid')} />
             ) : (
               !dropped && !showPay && (
-                <button onClick={() => setShowPay(true)} className="inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2 text-[12px] font-bold hover:bg-black transition">
+                <button onClick={() => setShowPay(true)} className="inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2 text-[12px] font-bold hover:opacity-90 transition">
                   <Plus size={14} /> {t('detail.recordPayment')}
                 </button>
               )
@@ -224,7 +224,7 @@ export default function StudentDetail() {
           <AnimatePresence>
             {showPay && enrollment.balance > 0 && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                <div className="mt-5 pt-5 border-t border-[#F1F1F1]">
+                <div className="mt-5 pt-5 border-t border-hair">
                   <div className="text-[11px] text-ink-muted font-semibold mb-3">{t('reg.bankRefHint')}</div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-[560px]">
                     <div>
@@ -241,8 +241,8 @@ export default function StudentDetail() {
                     <span className="font-extrabold tabular-nums">TSh {formatMoney(payAmount)}</span>
                   </div>
                   <div className="mt-4 flex gap-2">
-                    <button onClick={() => { setShowPay(false); setPayRef('') }} disabled={recording} className="bg-surface-soft hover:bg-[#EEE] rounded-[20px] px-4 py-2 text-[12px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
-                    <button onClick={recordPay} disabled={recording || !payRef.trim()} className="inline-flex items-center justify-center gap-1.5 bg-ink text-white rounded-[20px] px-5 py-2 min-w-[140px] text-[12px] font-bold hover:bg-black transition disabled:opacity-50">
+                    <button onClick={() => { setShowPay(false); setPayRef('') }} disabled={recording} className="bg-surface-soft hover:bg-hover rounded-[20px] px-4 py-2 text-[12px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
+                    <button onClick={recordPay} disabled={recording || !payRef.trim()} className="inline-flex items-center justify-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-5 py-2 min-w-[140px] text-[12px] font-bold hover:opacity-90 transition disabled:opacity-50">
                       {recording ? <Wave className="h-3.5 w-8 text-white" /> : t('detail.recordPayment')}
                     </button>
                   </div>
@@ -261,11 +261,11 @@ export default function StudentDetail() {
         ) : (
           <div className="flex flex-col">
             {payments.map((p, i) => (
-              <div key={p.id} className={`flex items-center justify-between gap-3 py-3 ${i === 0 ? '' : 'border-t border-[#F1F1F1]'}`}>
+              <div key={p.id} className={`flex items-center justify-between gap-3 py-3 ${i === 0 ? '' : 'border-t border-hair'}`}>
                 <div className="min-w-0"><div className="font-bold text-[12.5px]">{p.period || '—'}</div><div className="text-[10.5px] text-ink-muted font-semibold">#{p.bankRef} · {formatDate(p.createdAt)}</div></div>
                 <div className="flex items-center gap-2 shrink-0">
                   <div className="font-extrabold text-[13px] tabular-nums text-success">+TSh {formatMoney(p.amount)}</div>
-                  <button onClick={() => printPaymentReceipt(p)} title={t('receipt.print')} className="w-8 h-8 rounded-lg bg-surface-soft hover:bg-[#EEE] grid place-items-center text-ink-secondary transition"><Printer size={14} /></button>
+                  <button onClick={() => printPaymentReceipt(p)} title={t('receipt.print')} className="w-8 h-8 rounded-lg bg-surface-soft hover:bg-hover grid place-items-center text-ink-secondary transition"><Printer size={14} /></button>
                 </div>
               </div>
             ))}

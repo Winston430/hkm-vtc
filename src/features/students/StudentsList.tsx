@@ -68,7 +68,7 @@ export default function StudentsList() {
           <h1 className="text-[19px] font-extrabold tracking-[-0.3px]">{t('students.title')}</h1>
           <p className="text-[12.5px] text-ink-secondary mt-1">{t('students.subtitle')}</p>
         </div>
-        <Link to="/students/new" className="inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:bg-black transition">
+        <Link to="/students/new" className="inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition">
           <Plus size={15} /> {t('students.register')}
         </Link>
       </div>
@@ -78,7 +78,7 @@ export default function StudentsList() {
         <div className="inline-flex bg-surface-soft rounded-[20px] p-1">
           {tabs.map((tab) => (
             <button key={tab.key} onClick={() => setFilter(tab.key)}
-              className={`px-3.5 py-1.5 rounded-[16px] text-[12px] font-bold transition ${filter === tab.key ? 'bg-white text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]' : 'text-ink-muted hover:text-ink'}`}>
+              className={`px-3.5 py-1.5 rounded-[16px] text-[12px] font-bold transition ${filter === tab.key ? 'bg-surface text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]' : 'text-ink-muted hover:text-ink'}`}>
               {tab.label}
             </button>
           ))}
@@ -86,7 +86,7 @@ export default function StudentsList() {
         <div className="relative flex-1 min-w-[200px] max-w-[320px]">
           <MagnifyingGlass size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-muted pointer-events-none" />
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('students.searchPh')}
-            className="w-full text-[13px] font-medium text-ink bg-surface-soft rounded-md py-2.5 pl-10 pr-3.5 outline-none transition placeholder:text-ink-muted focus:bg-white focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]" />
+            className="w-full text-[13px] font-medium text-ink bg-surface-soft rounded-md py-2.5 pl-10 pr-3.5 outline-none transition placeholder:text-ink-muted focus:bg-surface focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]" />
         </div>
       </div>
 
@@ -106,7 +106,7 @@ export default function StudentsList() {
             {filter === 'all' && !search.trim() && (
               <>
                 <div className="text-[12.5px] text-ink-secondary mt-1 mb-4">{t('students.emptyHint')}</div>
-                <Link to="/students/new" className="inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:bg-black transition"><Plus size={15} /> {t('students.register')}</Link>
+                <Link to="/students/new" className="inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition"><Plus size={15} /> {t('students.register')}</Link>
               </>
             )}
           </div>
@@ -123,7 +123,7 @@ export default function StudentsList() {
             </thead>
             <tbody>
               {rows.map(({ s, balance, dropped, ended }, i) => (
-                <tr key={s.id} onClick={() => navigate(`/students/${s.id}`)} className={`cursor-pointer hover:bg-surface-soft transition ${i === 0 ? '' : 'border-t border-[#F1F1F1]'}`}>
+                <tr key={s.id} onClick={() => navigate(`/students/${s.id}`)} className={`cursor-pointer hover:bg-surface-soft transition ${i === 0 ? '' : 'border-t border-hair'}`}>
                   <td className="px-4 py-2.5">
                     <div className="flex items-center gap-2.5">
                       <Avatar name={s.fullName} size={32} />

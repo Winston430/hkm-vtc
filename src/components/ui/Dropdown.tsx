@@ -41,8 +41,8 @@ export function Dropdown({
         disabled={disabled}
         onClick={() => setOpen((o) => !o)}
         className={`w-full flex items-center justify-between gap-2 text-[13.5px] font-medium rounded-md py-3 px-3.5 bg-surface-soft transition outline-none ${
-          disabled ? 'opacity-70 cursor-not-allowed' : 'hover:bg-[#EEE]'
-        } ${open ? 'bg-white shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]' : ''}`}
+          disabled ? 'opacity-70 cursor-not-allowed' : 'hover:bg-hover'
+        } ${open ? 'bg-surface shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]' : ''}`}
       >
         <span className={selected ? 'text-ink truncate' : 'text-ink-muted'}>
           {selected ? selected.label : placeholder}

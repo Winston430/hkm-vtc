@@ -78,7 +78,7 @@ export default function Payments() {
           <h1 className="text-[19px] font-extrabold tracking-[-0.3px]">{t('payments.title')}</h1>
           <p className="text-[12.5px] text-ink-secondary mt-1">{t('payments.subtitle')}</p>
         </div>
-        <button onClick={exportCsv} disabled={filtered.length === 0} className="inline-flex items-center gap-1.5 bg-surface-soft hover:bg-[#EEE] rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition disabled:opacity-40">
+        <button onClick={exportCsv} disabled={filtered.length === 0} className="inline-flex items-center gap-1.5 bg-surface-soft hover:bg-hover rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition disabled:opacity-40">
           <DownloadSimple size={15} /> {t('payments.export')}
         </button>
       </div>
@@ -94,7 +94,7 @@ export default function Payments() {
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="inline-flex bg-surface-soft rounded-[20px] p-1">
           {ranges.map((r) => (
-            <button key={r.key} onClick={() => setRange(r.key)} className={`px-3.5 py-1.5 rounded-[16px] text-[12px] font-bold transition ${range === r.key ? 'bg-white text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]' : 'text-ink-muted hover:text-ink'}`}>
+            <button key={r.key} onClick={() => setRange(r.key)} className={`px-3.5 py-1.5 rounded-[16px] text-[12px] font-bold transition ${range === r.key ? 'bg-surface text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]' : 'text-ink-muted hover:text-ink'}`}>
               {r.label}
             </button>
           ))}
@@ -103,7 +103,7 @@ export default function Payments() {
         <div className="relative flex-1 min-w-[200px] max-w-[320px]">
           <MagnifyingGlass size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-muted pointer-events-none" />
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t('payments.search')}
-            className="w-full text-[13px] font-medium text-ink bg-surface-soft rounded-md py-2.5 pl-10 pr-3.5 outline-none transition placeholder:text-ink-muted focus:bg-white focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]" />
+            className="w-full text-[13px] font-medium text-ink bg-surface-soft rounded-md py-2.5 pl-10 pr-3.5 outline-none transition placeholder:text-ink-muted focus:bg-surface focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]" />
         </div>
 
         {isAdmin && branches.length > 0 && (
@@ -150,7 +150,7 @@ export default function Payments() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.15 }}
                   onClick={() => navigate(`/students/${p.studentId}`)}
-                  className={`cursor-pointer hover:bg-surface-soft transition ${i === 0 ? '' : 'border-t border-[#F1F1F1]'}`}
+                  className={`cursor-pointer hover:bg-surface-soft transition ${i === 0 ? '' : 'border-t border-hair'}`}
                 >
                   <td className="px-4 py-2.5">
                     <div className="flex items-center gap-2.5">

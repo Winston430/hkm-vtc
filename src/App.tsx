@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { MotionConfig } from 'motion/react'
 import { ThemeProvider } from './lib/theme'
 import { AuthProvider } from './lib/AuthContext'
@@ -20,6 +20,7 @@ import Agents from './features/agents/Agents'
 import Payments from './features/payments/Payments'
 import Reports from './features/reports/Reports'
 import Settings from './features/settings/Settings'
+import NotFound from './features/misc/NotFound'
 
 export default function App() {
   return (
@@ -54,10 +55,10 @@ export default function App() {
                 <Route path="/payments" element={<Payments />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="*" element={<NotFound />} />
                 {/* courses, branches, agents, payments — coming next */}
               </Route>
 
-              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>

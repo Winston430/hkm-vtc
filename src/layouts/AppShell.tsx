@@ -38,12 +38,12 @@ export default function AppShell() {
 
         <main className="min-w-0 overflow-x-hidden">
           {/* mobile top bar */}
-          <div className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 h-14 bg-canvas/90 backdrop-blur border-b border-[#F1F1F1]">
+          <div className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 h-14 bg-canvas/90 backdrop-blur border-b border-hair">
             <button onClick={() => setOpen(true)} aria-label="Menu" className="w-9 h-9 rounded-lg bg-surface-soft grid place-items-center text-ink">
               <List size={18} />
             </button>
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-[8px] bg-ink text-white grid place-items-center font-extrabold text-[11px]">HK</div>
+              <div className="w-7 h-7 rounded-[8px] bg-primary text-on-primary grid place-items-center font-extrabold text-[11px]">HK</div>
               <div className="font-extrabold text-[14px]">
                 HKM <span className="text-ink-muted font-bold text-[10px] tracking-wide">VOCATIONAL</span>
               </div>

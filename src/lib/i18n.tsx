@@ -407,6 +407,11 @@ export const strings = {
   'settings.installBtn':      { en: 'Install',                                   sw: 'Sakinisha' },
   'settings.installed':       { en: 'The app is installed on this device.',      sw: 'Programu imesakinishwa kwenye kifaa hiki.' },
   'settings.installHint':     { en: 'Not available here — use your browser menu (Install app / Add to Home screen).', sw: 'Haipatikani hapa — tumia menyu ya kivinjari (Install app / Add to Home screen).' },
+
+  // ---- 404 ----
+  'nf.title':                 { en: 'Page not found',                            sw: 'Ukurasa haukupatikana' },
+  'nf.desc':                  { en: "The page you're looking for doesn't exist or has moved.", sw: 'Ukurasa unaoutafuta haupo au umehamishwa.' },
+  'nf.home':                  { en: 'Back to dashboard',                         sw: 'Rudi dashibodi' },
 } satisfies Record<string, Entry>
 
 export type StringKey = keyof typeof strings

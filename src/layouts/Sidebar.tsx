@@ -48,7 +48,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
     <aside className="h-screen sticky top-0 bg-canvas px-3.5 py-5 flex flex-col w-[176px]">
       {/* brand */}
       <div className="flex items-center gap-2.5 px-2 pb-0.5">
-        <div className="relative w-[30px] h-[30px] rounded-[9px] bg-ink text-white grid place-items-center font-extrabold text-[12px] overflow-hidden">
+        <div className="relative w-[30px] h-[30px] rounded-[9px] bg-primary text-on-primary grid place-items-center font-extrabold text-[12px] overflow-hidden">
           <span>HK</span>
           <img
             src="/logo.png"
@@ -77,7 +77,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             className={({ isActive }) =>
               `relative flex items-center gap-2.5 px-2.5 py-2.5 rounded-[11px] font-semibold text-[12.5px] transition ${
                 isActive
-                  ? 'bg-[#F0F0F0] text-ink'
+                  ? 'bg-active text-ink'
                   : 'text-ink-secondary hover:bg-surface-soft hover:text-ink'
               }`
             }
@@ -109,7 +109,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
               onClick={() => setLang(l)}
               className={`font-bold text-[11px] px-3 py-1 rounded-2xl transition ${
                 lang === l
-                  ? 'bg-white text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]'
+                  ? 'bg-surface text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]'
                   : 'text-ink-muted'
               }`}
             >
@@ -120,7 +120,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 
         <div className="bg-surface rounded-[18px] p-3.5 shadow-soft text-center">
           <Link to="/settings" onClick={onNavigate} className="block hover:opacity-80 transition">
-            <div className="w-[42px] h-[42px] rounded-full mx-auto mb-2 grid place-items-center text-white font-bold text-[15px] bg-gradient-to-br from-ink to-[#3a3a3a]">
+            <div className="w-[42px] h-[42px] rounded-full mx-auto mb-2 grid place-items-center text-white font-bold text-[15px] bg-gradient-to-br from-[#2b2b30] to-[#45454b]">
               {initial}
             </div>
             <div className="font-bold text-[12.5px] truncate">{name}</div>
@@ -130,7 +130,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           </Link>
           <button
             onClick={() => logout()}
-            className="mt-3 w-full inline-flex items-center justify-center gap-1.5 bg-surface-soft hover:bg-[#EEE] rounded-[20px] py-2 text-[11.5px] font-bold text-ink-secondary transition"
+            className="mt-3 w-full inline-flex items-center justify-center gap-1.5 bg-surface-soft hover:bg-hover rounded-[20px] py-2 text-[11.5px] font-bold text-ink-secondary transition"
           >
             <SignOut size={14} />
             {t('nav.signout')}

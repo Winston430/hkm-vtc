@@ -48,6 +48,13 @@
    ========================================================= */
 
 /* new tokens (merged into the theme so utilities are generated) */
+/* =========================================================
+   Append this to the END of your src/index.css
+   (dark mode: new tokens + .dark overrides)
+   Replaces any earlier version of this block.
+   ========================================================= */
+
+/* new tokens (merged into the theme so utilities are generated) */
 @theme {
   --color-primary: #171717;      /* primary button / brand tile bg */
   --color-on-primary: #FFFFFF;   /* text on primary */
@@ -58,27 +65,27 @@
 /* dark palette — overriding the CSS variables flips the whole app */
 .dark {
   --color-canvas: #0E0E10;
-  --color-surface: #17171A;
-  --color-surface-soft: #212127;
-  --color-panel: #121214;
-  --color-hair: #27272E;
-  --color-hover: #2A2A31;
-  --color-active: #2E2E36;
+  --color-surface: #1B1B1F;
+  --color-surface-soft: #26262C;
+  --color-panel: #141417;
+  --color-hair: #2E2E36;
+  --color-hover: #33333B;
+  --color-active: #383841;
 
-  --color-ink: #F2F2F3;
-  --color-ink-secondary: #A6A6AE;
-  --color-ink-muted: #6C6C75;
+  --color-ink: #F4F4F5;          /* primary text — near white */
+  --color-ink-secondary: #C2C2CA; /* brighter so secondary text is readable */
+  --color-ink-muted: #9A9AA4;     /* brighter so muted labels are visible */
 
-  --color-primary: #F2F2F3;      /* buttons become light with dark text */
+  --color-primary: #F4F4F5;      /* buttons become light with dark text */
   --color-on-primary: #17171A;
 
-  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.5);
   color-scheme: dark;
 }
 
 /* skeleton shimmer needs a light sweep on dark surfaces */
 .dark .hkm-skeleton::after {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.07), transparent);
 }
 
 /* =========================================================

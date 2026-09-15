@@ -17,7 +17,7 @@ import { Skeleton } from '../../components/ui/skeleton'
 import { Wave } from '../../components/loading-ui/wave'
 
 const inputClass =
-  'w-full text-[13.5px] font-medium text-ink bg-surface-soft rounded-md py-3 px-3.5 outline-none transition placeholder:text-ink-muted focus:bg-white focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
+  'w-full text-[13.5px] font-medium text-ink bg-surface-soft rounded-md py-3 px-3.5 outline-none transition placeholder:text-ink-muted focus:bg-surface focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
 
 const empty = { name: '', email: '', password: '', branchId: '' }
 
@@ -91,7 +91,7 @@ export default function Agents() {
         <button
           onClick={openAdd}
           disabled={branches.length === 0}
-          className="inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:bg-black transition disabled:opacity-40"
+          className="inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition disabled:opacity-40"
         >
           <Plus size={15} /> {t('agents.add')}
         </button>
@@ -112,7 +112,7 @@ export default function Agents() {
           <div className="w-12 h-12 rounded-full bg-surface-soft grid place-items-center mx-auto text-ink-muted mb-3"><IdentificationBadge size={24} /></div>
           <div className="font-extrabold text-[15px]">{t('agents.empty')}</div>
           <div className="text-[12.5px] text-ink-secondary mt-1 mb-4">{t('agents.emptyHint')}</div>
-          <button onClick={openAdd} disabled={branches.length === 0} className="inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:bg-black transition disabled:opacity-40"><Plus size={15} /> {t('agents.add')}</button>
+          <button onClick={openAdd} disabled={branches.length === 0} className="inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition disabled:opacity-40"><Plus size={15} /> {t('agents.add')}</button>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -133,11 +133,11 @@ export default function Agents() {
                   {a.active ? t('agents.active') : t('agents.inactive')}
                 </span>
               </div>
-              <div className="flex gap-1.5 mt-4 pt-4 border-t border-[#F1F1F1]">
-                <button onClick={() => toggleActive(a)} className="flex-1 inline-flex items-center justify-center gap-1.5 bg-surface-soft hover:bg-[#EEE] rounded-[20px] py-2 text-[11.5px] font-bold text-ink-secondary transition">
+              <div className="flex gap-1.5 mt-4 pt-4 border-t border-hair">
+                <button onClick={() => toggleActive(a)} className="flex-1 inline-flex items-center justify-center gap-1.5 bg-surface-soft hover:bg-hover rounded-[20px] py-2 text-[11.5px] font-bold text-ink-secondary transition">
                   {a.active ? <><Prohibit size={13} /> {t('agents.disable')}</> : <><CheckCircle size={13} /> {t('agents.enable')}</>}
                 </button>
-                <button onClick={() => setRemovingAgent(a)} className="w-9 h-9 rounded-[20px] bg-surface-soft hover:bg-[#EEE] grid place-items-center text-danger transition"><Trash size={15} /></button>
+                <button onClick={() => setRemovingAgent(a)} className="w-9 h-9 rounded-[20px] bg-surface-soft hover:bg-hover grid place-items-center text-danger transition"><Trash size={15} /></button>
               </div>
             </motion.div>
           ))}
@@ -166,8 +166,8 @@ export default function Agents() {
               options={branches.map((b) => ({ value: b.id, label: b.name }))} />
           </div>
           <div className="flex justify-end gap-2 mt-1">
-            <button onClick={() => setFormOpen(false)} disabled={saving} className="bg-surface-soft hover:bg-[#EEE] rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
-            <button onClick={save} disabled={saving || !valid} className="inline-flex items-center justify-center gap-1.5 bg-ink text-white rounded-[20px] px-5 py-2.5 min-w-[160px] text-[12.5px] font-bold hover:bg-black transition disabled:opacity-50">
+            <button onClick={() => setFormOpen(false)} disabled={saving} className="bg-surface-soft hover:bg-hover rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
+            <button onClick={save} disabled={saving || !valid} className="inline-flex items-center justify-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-5 py-2.5 min-w-[160px] text-[12.5px] font-bold hover:opacity-90 transition disabled:opacity-50">
               {saving ? <Wave className="h-3.5 w-8 text-white" /> : t('agents.create')}
             </button>
           </div>
@@ -179,7 +179,7 @@ export default function Agents() {
         <div className="text-[13px] text-ink-secondary font-semibold">{t('agents.removeConfirm')}</div>
         <div className="text-[13px] font-extrabold mt-2">{removingAgent?.name}</div>
         <div className="flex justify-end gap-2 mt-5">
-          <button onClick={() => setRemovingAgent(null)} disabled={busy} className="bg-surface-soft hover:bg-[#EEE] rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
+          <button onClick={() => setRemovingAgent(null)} disabled={busy} className="bg-surface-soft hover:bg-hover rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
           <button onClick={confirmRemove} disabled={busy} className="inline-flex items-center justify-center gap-1.5 bg-danger text-white rounded-[20px] px-5 py-2.5 min-w-[120px] text-[12.5px] font-bold hover:brightness-95 transition disabled:opacity-60">
             {busy ? <Wave className="h-3.5 w-8 text-white" /> : t('detail.confirm')}
           </button>

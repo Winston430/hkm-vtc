@@ -53,7 +53,7 @@ export function BusyProvider({ children }: { children: ReactNode }) {
             transition={{ duration: 0.15 }}
           >
             {/* blurred, click-blocking backdrop */}
-            <div className="absolute inset-0 bg-white/55 backdrop-blur-[3px]" />
+            <div className="absolute inset-0 bg-canvas/70 backdrop-blur-[3px]" />
             <div className="relative bg-surface rounded-[18px] shadow-[0_20px_60px_rgba(0,0,0,0.18)] px-8 py-7 flex flex-col items-center gap-3">
               <Wave className="h-8 w-16 text-ink" />
               {message && <div className="text-[12.5px] font-bold text-ink-secondary">{message}</div>}

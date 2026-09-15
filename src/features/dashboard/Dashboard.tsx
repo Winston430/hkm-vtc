@@ -38,6 +38,7 @@ export default function Dashboard() {
 
   const [seeding, setSeeding] = useState(false)
   const [showNotif, setShowNotif] = useState(true)
+  const [sheetOpen, setSheetOpen] = useState(false)
   const { courses: catalogCourses, loading: catalogLoading } = useCourses(true)
   // only prompt to seed once we KNOW the catalog is empty (never while loading)
   const needsSeed = isAdmin && !catalogLoading && catalogCourses.length === 0
@@ -79,10 +80,10 @@ export default function Dashboard() {
               tabIndex={0}
               onClick={() => openNotification(n)}
               onKeyDown={(e) => { if (e.key === 'Enter') openNotification(n) }}
-              className="relative bg-surface rounded-[14px] p-3 shadow-soft flex gap-2.5 cursor-pointer transition hover:bg-[#FAFAFA] active:scale-[0.99]"
+              className="relative bg-surface rounded-[14px] p-3 shadow-soft flex gap-2.5 cursor-pointer transition hover:bg-hover active:scale-[0.99]"
             >
               {!n.read && <span className="absolute top-3 right-3 w-[7px] h-[7px] rounded-full bg-danger" />}
-              <span className="w-[34px] h-[34px] rounded-[10px] shrink-0 grid place-items-center text-white bg-gradient-to-br from-ink to-[#3a3a3a]">
+              <span className="w-[34px] h-[34px] rounded-[10px] shrink-0 grid place-items-center text-white bg-gradient-to-br from-[#2b2b30] to-[#45454b]">
                 <UserPlus size={16} />
               </span>
               <div className="min-w-0">
@@ -99,7 +100,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="h-px bg-black/[0.06] my-5" />
+      <div className="h-px bg-hair my-5" />
 
       <div className="text-[13.5px] font-extrabold mb-3">{t('dash.todaysPayments')}</div>
       {d.loading ? (
@@ -128,13 +129,13 @@ export default function Dashboard() {
             <p className="text-[12.5px] text-ink-secondary mt-1">{t('dash.subtitle')}</p>
           </div>
           <div className="flex gap-2">
-            <Link to="/settings" aria-label="Settings" className="w-[38px] h-[38px] rounded-xl bg-surface-soft grid place-items-center text-ink-secondary hover:bg-[#EEE] transition">
+            <Link to="/settings" aria-label="Settings" className="w-[38px] h-[38px] rounded-xl bg-surface-soft grid place-items-center text-ink-secondary hover:bg-hover transition">
               <Gear size={17} />
             </Link>
             {isAdmin && (
               <button
-                onClick={() => setShowNotif((v) => !v)}
-                className={`w-[38px] h-[38px] rounded-xl grid place-items-center transition relative ${showNotif ? 'bg-ink text-white' : 'bg-surface-soft text-ink-secondary hover:bg-[#EEE]'}`}
+                onClick={() => { setShowNotif((v) => !v); setSheetOpen((v) => !v) }}
+                className={`w-[38px] h-[38px] rounded-xl grid place-items-center transition relative ${showNotif ? 'bg-primary text-on-primary' : 'bg-surface-soft text-ink-secondary hover:bg-hover'}`}
                 aria-label="Toggle notifications"
               >
                 <Bell size={17} weight={showNotif ? 'fill' : 'regular'} />
@@ -159,7 +160,7 @@ export default function Dashboard() {
                   <div className="font-extrabold text-[14px]">{t('common.seedTitle')}</div>
                   <div className="text-[12.5px] text-ink-secondary mt-0.5">{t('common.seedHint')}</div>
                 </div>
-                <button onClick={runSeed} disabled={seeding} className="shrink-0 inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:bg-black transition disabled:opacity-60">
+                <button onClick={runSeed} disabled={seeding} className="shrink-0 inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition disabled:opacity-60">
                   <Plus size={15} />{t('common.seedBtn')}
                 </button>
               </div>
@@ -176,7 +177,7 @@ export default function Dashboard() {
         <div className="mt-7">
           <div className="flex items-center justify-between mb-3">
             <div className="text-[14px] font-extrabold tracking-[-0.2px]">{t('dash.recent')}</div>
-            <Link to="/students" className="text-[11.5px] font-semibold text-ink-secondary bg-surface-soft hover:bg-[#EEE] px-3 py-1.5 rounded-[20px] transition">{t('dash.viewAll')}</Link>
+            <Link to="/students" className="text-[11.5px] font-semibold text-ink-secondary bg-surface-soft hover:bg-hover px-3 py-1.5 rounded-[20px] transition">{t('dash.viewAll')}</Link>
           </div>
           <div className="bg-surface rounded-[18px] shadow-soft px-1 py-1.5">
             {d.loading ? (
@@ -199,7 +200,7 @@ export default function Dashboard() {
                 </thead>
                 <tbody>
                   {d.recent.map((r, i) => (
-                    <tr key={r.id} className={i === 0 ? '' : 'border-t border-[#F1F1F1]'}>
+                    <tr key={r.id} className={i === 0 ? '' : 'border-t border-hair'}>
                       <td className="px-4 py-2.5">
                         <div className="flex items-center gap-2.5">
                           <Avatar name={r.name} size={32} />
@@ -222,7 +223,7 @@ export default function Dashboard() {
           <div className="bg-surface rounded-[18px] shadow-soft p-[18px]">
             <div className="flex items-center justify-between mb-3.5">
               <div className="text-[14px] font-extrabold tracking-[-0.2px]">{t('dash.popularCourses')}</div>
-              {isAdmin && <Link to="/courses" className="inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-3.5 py-2 text-[12px] font-bold hover:bg-black transition"><Plus size={14} />{t('dash.addCourse')}</Link>}
+              {isAdmin && <Link to="/courses" className="inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-3.5 py-2 text-[12px] font-bold hover:opacity-90 transition"><Plus size={14} />{t('dash.addCourse')}</Link>}
             </div>
             {d.loading ? (
               <div className="flex flex-col gap-3">{[0, 1, 2].map((i) => <Skeleton key={i} className="h-8 w-full" />)}</div>
@@ -230,10 +231,10 @@ export default function Dashboard() {
               <div className="py-8 text-center text-[12.5px] text-ink-muted font-semibold">{t('common.empty')}</div>
             ) : (
               d.popularCourses.map((c, i) => (
-                <div key={c.name} className={`flex items-center justify-between py-2.5 ${i === 0 ? '' : 'border-t border-[#F1F1F1]'}`}>
+                <div key={c.name} className={`flex items-center justify-between py-2.5 ${i === 0 ? '' : 'border-t border-hair'}`}>
                   <div>
                     <div className="font-bold text-[12.5px]">{c.name}</div>
-                    <div className="h-[6px] w-[120px] rounded-[6px] bg-[#EFEFEF] overflow-hidden mt-1.5">
+                    <div className="h-[6px] w-[120px] rounded-[6px] bg-hair overflow-hidden mt-1.5">
                       <motion.span className="block h-full rounded-[6px] bg-ink" initial={{ width: 0 }} animate={{ width: `${c.pct}%` }} transition={{ duration: 0.5, ease: 'easeOut' }} />
                     </div>
                   </div>
@@ -247,7 +248,7 @@ export default function Dashboard() {
             <div className="bg-surface rounded-[18px] shadow-soft p-[18px]">
               <div className="flex items-center justify-between mb-3.5">
                 <div className="text-[14px] font-extrabold tracking-[-0.2px]">{t('nav.branches')}</div>
-                <Link to="/branches" className="text-[11.5px] font-semibold text-ink-secondary bg-surface-soft hover:bg-[#EEE] px-3 py-1.5 rounded-[20px] transition">{t('dash.manage')}</Link>
+                <Link to="/branches" className="text-[11.5px] font-semibold text-ink-secondary bg-surface-soft hover:bg-hover px-3 py-1.5 rounded-[20px] transition">{t('dash.manage')}</Link>
               </div>
               {d.loading ? (
                 <div className="flex flex-col gap-3">{[0, 1].map((i) => <Skeleton key={i} className="h-10 w-full" />)}</div>
@@ -255,7 +256,7 @@ export default function Dashboard() {
                 <div className="py-8 text-center text-[12.5px] text-ink-muted font-semibold">{t('common.empty')}</div>
               ) : (
                 d.branchSummaries.map((b, i) => (
-                  <div key={b.id} className={`flex items-center gap-3 py-2.5 ${i === 0 ? '' : 'border-t border-[#F1F1F1]'}`}>
+                  <div key={b.id} className={`flex items-center gap-3 py-2.5 ${i === 0 ? '' : 'border-t border-hair'}`}>
                     <div className="w-[34px] h-[34px] rounded-[11px] bg-surface-soft grid place-items-center text-ink-secondary"><Buildings size={17} /></div>
                     <div className="font-bold text-[12.5px]">{b.name}</div>
                     <div className="ml-auto text-right"><b className="text-[15px] font-extrabold">{b.students}</b><span className="block text-[9.5px] text-ink-muted font-semibold">{t('dash.studentsLower')}</span></div>
@@ -280,6 +281,31 @@ export default function Dashboard() {
           >
             <div className="w-[300px] p-6 min-h-screen">{panelContent}</div>
           </motion.aside>
+        )}
+      </AnimatePresence>
+
+      {/* ===== MOBILE: notifications bottom sheet (below xl) ===== */}
+      <AnimatePresence>
+        {isAdmin && sheetOpen && (
+          <div className="xl:hidden fixed inset-0 z-[999]">
+            <motion.div
+              className="absolute inset-0 bg-black/40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSheetOpen(false)}
+            />
+            <motion.div
+              className="absolute left-0 right-0 bottom-0 bg-panel rounded-t-[24px] max-h-[82vh] overflow-auto p-5 pb-8"
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', stiffness: 340, damping: 36 }}
+            >
+              <div className="w-10 h-1 rounded-full bg-hair mx-auto mb-4" />
+              {panelContent}
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

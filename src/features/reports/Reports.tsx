@@ -149,7 +149,7 @@ export default function Reports() {
             <div className="text-[12px] text-ink-secondary mt-1 flex-1">{c.desc}</div>
             <div className="text-[11px] text-ink-muted font-bold mt-3">{c.count} {t('reports.count')}</div>
             <button onClick={c.action} disabled={c.count === 0}
-              className="mt-4 inline-flex items-center justify-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:bg-black transition disabled:opacity-40">
+              className="mt-4 inline-flex items-center justify-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition disabled:opacity-40">
               <Printer size={15} /> {t('reports.print')}
             </button>
           </motion.div>

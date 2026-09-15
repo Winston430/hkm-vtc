@@ -23,7 +23,7 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
         <div className="text-center max-w-[320px]">
           <div className="text-[16px] font-extrabold text-ink">Account disabled</div>
           <p className="text-[13px] text-ink-secondary mt-1.5">Your access has been turned off. Please contact your administrator.</p>
-          <button onClick={() => logout()} className="mt-5 bg-ink text-white rounded-[20px] px-5 py-2.5 text-[12.5px] font-bold hover:bg-black transition">Sign out</button>
+          <button onClick={() => logout()} className="mt-5 bg-primary text-on-primary rounded-[20px] px-5 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition">Sign out</button>
         </div>
       </div>
     )

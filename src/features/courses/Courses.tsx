@@ -14,7 +14,7 @@ import { Wave } from '../../components/loading-ui/wave'
 import type { Course } from '../../lib/types'
 
 const inputClass =
-  'w-full text-[13.5px] font-medium text-ink bg-surface-soft rounded-md py-3 px-3.5 outline-none transition placeholder:text-ink-muted focus:bg-white focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
+  'w-full text-[13.5px] font-medium text-ink bg-surface-soft rounded-md py-3 px-3.5 outline-none transition placeholder:text-ink-muted focus:bg-surface focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
 
 const empty = { name: '', code: '', category: '', durationMonths: '1', price: '', active: true }
 
@@ -105,7 +105,7 @@ export default function Courses() {
           <h1 className="text-[19px] font-extrabold tracking-[-0.3px]">{t('courses.title')}</h1>
           <p className="text-[12.5px] text-ink-secondary mt-1">{t('courses.subtitle')}</p>
         </div>
-        <button onClick={openAdd} className="inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:bg-black transition">
+        <button onClick={openAdd} className="inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition">
           <Plus size={15} /> {t('courses.add')}
         </button>
       </div>
@@ -119,7 +119,7 @@ export default function Courses() {
           <div className="w-12 h-12 rounded-full bg-surface-soft grid place-items-center mx-auto text-ink-muted mb-3"><GraduationCap size={24} /></div>
           <div className="font-extrabold text-[15px]">{t('courses.empty')}</div>
           <div className="text-[12.5px] text-ink-secondary mt-1 mb-4">{t('courses.emptyHint')}</div>
-          <button onClick={openAdd} className="inline-flex items-center gap-1.5 bg-ink text-white rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:bg-black transition"><Plus size={15} /> {t('courses.add')}</button>
+          <button onClick={openAdd} className="inline-flex items-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold hover:opacity-90 transition"><Plus size={15} /> {t('courses.add')}</button>
         </div>
       ) : (
         <div className="flex flex-col gap-7">
@@ -145,14 +145,14 @@ export default function Courses() {
                       <div className="text-[11px] text-ink-muted font-semibold mt-1">
                         {t('courses.installments')}: {plan.count} × TSh {formatMoney(plan.amounts[0])}
                       </div>
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#F1F1F1]">
+                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-hair">
                         <span className={`inline-flex items-center gap-1.5 text-[11px] font-bold ${c.active ? 'text-success' : 'text-ink-muted'}`}>
                           <span className={`w-1.5 h-1.5 rounded-full ${c.active ? 'bg-success' : 'bg-ink-muted'}`} />
                           {c.active ? t('courses.active') : t('courses.inactive')}
                         </span>
                         <div className="flex gap-1.5">
-                          <button onClick={() => openEdit(c)} className="w-8 h-8 rounded-lg bg-surface-soft hover:bg-[#EEE] grid place-items-center text-ink-secondary transition"><PencilSimple size={15} /></button>
-                          <button onClick={() => setDeleting(c)} className="w-8 h-8 rounded-lg bg-surface-soft hover:bg-[#EEE] grid place-items-center text-danger transition"><Trash size={15} /></button>
+                          <button onClick={() => openEdit(c)} className="w-8 h-8 rounded-lg bg-surface-soft hover:bg-hover grid place-items-center text-ink-secondary transition"><PencilSimple size={15} /></button>
+                          <button onClick={() => setDeleting(c)} className="w-8 h-8 rounded-lg bg-surface-soft hover:bg-hover grid place-items-center text-danger transition"><Trash size={15} /></button>
                         </div>
                       </div>
                     </motion.div>
@@ -201,14 +201,14 @@ export default function Courses() {
 
           <div className="flex items-center justify-between">
             <span className="text-[12px] font-bold text-ink">{form.active ? t('courses.active') : t('courses.inactive')}</span>
-            <button type="button" onClick={() => setForm({ ...form, active: !form.active })} className={`w-11 h-6 rounded-full transition relative ${form.active ? 'bg-ink' : 'bg-surface-soft'}`}>
+            <button type="button" onClick={() => setForm({ ...form, active: !form.active })} className={`w-11 h-6 rounded-full transition relative ${form.active ? 'bg-success' : 'bg-surface-soft'}`}>
               <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${form.active ? 'left-[22px]' : 'left-0.5'}`} />
             </button>
           </div>
 
           <div className="flex justify-end gap-2 mt-1">
-            <button onClick={() => setFormOpen(false)} disabled={saving} className="bg-surface-soft hover:bg-[#EEE] rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
-            <button onClick={save} disabled={saving || !valid} className="inline-flex items-center justify-center gap-1.5 bg-ink text-white rounded-[20px] px-5 py-2.5 min-w-[150px] text-[12.5px] font-bold hover:bg-black transition disabled:opacity-50">
+            <button onClick={() => setFormOpen(false)} disabled={saving} className="bg-surface-soft hover:bg-hover rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
+            <button onClick={save} disabled={saving || !valid} className="inline-flex items-center justify-center gap-1.5 bg-primary text-on-primary rounded-[20px] px-5 py-2.5 min-w-[150px] text-[12.5px] font-bold hover:opacity-90 transition disabled:opacity-50">
               {saving ? <Wave className="h-3.5 w-8 text-white" /> : t('courses.save')}
             </button>
           </div>
@@ -220,7 +220,7 @@ export default function Courses() {
         <div className="text-[13px] text-ink-secondary font-semibold">{t('courses.deleteConfirm')}</div>
         <div className="text-[13px] font-extrabold mt-2">{deleting?.name}</div>
         <div className="flex justify-end gap-2 mt-5">
-          <button onClick={() => setDeleting(null)} disabled={removing} className="bg-surface-soft hover:bg-[#EEE] rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
+          <button onClick={() => setDeleting(null)} disabled={removing} className="bg-surface-soft hover:bg-hover rounded-[20px] px-4 py-2.5 text-[12.5px] font-bold text-ink-secondary transition">{t('detail.cancel')}</button>
           <button onClick={confirmDelete} disabled={removing} className="inline-flex items-center justify-center gap-1.5 bg-danger text-white rounded-[20px] px-5 py-2.5 min-w-[120px] text-[12.5px] font-bold hover:brightness-95 transition disabled:opacity-60">
             {removing ? <Wave className="h-3.5 w-8 text-white" /> : t('detail.confirm')}
           </button>

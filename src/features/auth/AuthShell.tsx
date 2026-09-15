@@ -25,7 +25,7 @@ export default function AuthShell({ children }: { children: ReactNode }) {
       <div className="flex flex-col px-6 sm:px-10 py-8 relative">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="relative w-9 h-9 rounded-[10px] bg-ink text-white grid place-items-center font-extrabold text-[13px] overflow-hidden">
+            <div className="relative w-9 h-9 rounded-[10px] bg-primary text-on-primary grid place-items-center font-extrabold text-[13px] overflow-hidden">
               <span>HK</span>
               <img
                 src="/logo.png"
@@ -50,7 +50,7 @@ export default function AuthShell({ children }: { children: ReactNode }) {
                 onClick={() => setLang(l)}
                 className={`font-bold text-[11.5px] px-3 py-[5px] rounded-2xl transition ${
                   lang === l
-                    ? 'bg-white text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]'
+                    ? 'bg-surface text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]'
                     : 'text-ink-muted'
                 }`}
               >

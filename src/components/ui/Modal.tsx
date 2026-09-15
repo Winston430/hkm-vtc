@@ -36,7 +36,7 @@ export function Modal({
             {title && (
               <div className="flex items-center justify-between mb-4">
                 <div className="text-[15px] font-extrabold">{title}</div>
-                <button onClick={onClose} className="w-8 h-8 rounded-lg bg-surface-soft hover:bg-[#EEE] grid place-items-center text-ink-secondary transition"><X size={16} /></button>
+                <button onClick={onClose} className="w-8 h-8 rounded-lg bg-surface-soft hover:bg-hover grid place-items-center text-ink-secondary transition"><X size={16} /></button>
               </div>
             )}
             {children}

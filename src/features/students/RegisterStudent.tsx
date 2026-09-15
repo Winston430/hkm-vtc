@@ -15,7 +15,7 @@ import { Wave } from '../../components/loading-ui/wave'
 import { Dropdown } from '../../components/ui/Dropdown'
 
 const inputClass =
-  'w-full text-[13.5px] font-medium text-ink bg-surface-soft rounded-md py-3 px-3.5 outline-none transition placeholder:text-ink-muted focus:bg-white focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
+  'w-full text-[13.5px] font-medium text-ink bg-surface-soft rounded-md py-3 px-3.5 outline-none transition placeholder:text-ink-muted focus:bg-surface focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -162,7 +162,7 @@ export default function RegisterStudent() {
           {STEPS.map((label, i) => (
             <div key={label} className="flex items-center flex-1 last:flex-none">
               <div className="flex items-center gap-2.5">
-                <div className={`w-8 h-8 rounded-full grid place-items-center text-[12px] font-bold shrink-0 transition ${i <= step ? 'bg-ink text-white' : 'bg-surface-soft text-ink-muted'}`}>
+                <div className={`w-8 h-8 rounded-full grid place-items-center text-[12px] font-bold shrink-0 transition ${i <= step ? 'bg-primary text-on-primary' : 'bg-surface-soft text-ink-muted'}`}>
                   {i < step ? <Check size={15} weight="bold" /> : i + 1}
                 </div>
                 <span className={`text-[12.5px] font-bold hidden sm:block ${i === step ? 'text-ink' : 'text-ink-muted'}`}>{label}</span>
@@ -277,7 +277,7 @@ export default function RegisterStudent() {
           <div className="bg-surface rounded-[18px] shadow-soft p-6 max-w-[820px]">
             <div className="text-[14px] font-extrabold">{t('reg.reviewTitle')}</div>
             <div className="text-[12px] text-ink-secondary mt-0.5 mb-5">{t('reg.reviewHint')}</div>
-            <div className="flex items-center gap-4 pb-5 mb-5 border-b border-[#F1F1F1]">
+            <div className="flex items-center gap-4 pb-5 mb-5 border-b border-hair">
               <div className="w-[64px] h-[80px] rounded-[12px] bg-surface-soft overflow-hidden grid place-items-center text-ink-muted shrink-0">
                 {photoPreview ? <img src={photoPreview} alt="" className="w-full h-full object-cover" /> : <Camera size={20} />}
               </div>
@@ -315,12 +315,12 @@ export default function RegisterStudent() {
         <div className="text-[11.5px] font-bold text-ink-muted hidden sm:block">{t('reg.stepLabel')} {step + 1} {t('reg.of')} {STEPS.length}</div>
         {step < 3 ? (
           <button type="button" onClick={() => { if (canNext) { setDir(1); setStep((s) => Math.min(3, s + 1)) } }} disabled={!canNext}
-            className="inline-flex items-center gap-2 text-sm font-bold text-white bg-ink rounded-md min-h-[46px] px-6 hover:bg-black transition disabled:opacity-40">
+            className="inline-flex items-center gap-2 text-sm font-bold text-on-primary bg-primary rounded-md min-h-[46px] px-6 hover:opacity-90 transition disabled:opacity-40">
             {t('reg.next')}<ArrowRight size={16} />
           </button>
         ) : (
           <button type="button" onClick={submit} disabled={saving}
-            className="inline-flex items-center justify-center gap-2 text-sm font-bold text-white bg-ink rounded-md min-h-[46px] min-w-[180px] px-6 hover:bg-black transition disabled:opacity-60">
+            className="inline-flex items-center justify-center gap-2 text-sm font-bold text-on-primary bg-primary rounded-md min-h-[46px] min-w-[180px] px-6 hover:opacity-90 transition disabled:opacity-60">
             {saving ? <Wave className="h-4 w-10 text-white" /> : t('reg.submit')}
           </button>
         )}
