@@ -8,6 +8,7 @@ import {
   Buildings,
   IdentificationBadge,
   Wallet,
+  Receipt,
   Printer,
   SignOut,
 } from '@phosphor-icons/react'
@@ -30,8 +31,9 @@ const NAV: NavDef[] = [
   { to: '/students', key: 'nav.students',  Icon: Users,                roles: ['admin', 'agent'] },
   { to: '/courses',  key: 'nav.courses',   Icon: GraduationCap,        roles: ['admin'] },
   { to: '/branches', key: 'nav.branches',  Icon: Buildings,            roles: ['admin'] },
-  { to: '/agents',   key: 'nav.agents',    Icon: IdentificationBadge,  roles: ['admin'] },
+  { to: '/staff',    key: 'nav.staff',     Icon: IdentificationBadge,  roles: ['admin'] },
   { to: '/payments', key: 'nav.payments',  Icon: Wallet,               roles: ['admin', 'agent'] },
+  { to: '/expenses', key: 'nav.expenses',  Icon: Receipt,              roles: ['admin', 'agent'] },
   { to: '/reports',  key: 'nav.reports',   Icon: Printer,              roles: ['admin', 'agent'] },
 ]
 

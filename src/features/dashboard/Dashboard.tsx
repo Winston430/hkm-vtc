@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import {
-  Gear, Bell, UsersThree, Wallet, ClockCountdown, Plus, Buildings, UserPlus,
+  Gear, Bell, UsersThree, Wallet, ClockCountdown, Plus, Buildings, UserPlus, Bank,
 } from '@phosphor-icons/react'
 import { useAuth } from '../../hooks/useAuth'
 import { useI18n } from '../../lib/i18n'
@@ -168,10 +168,11 @@ export default function Dashboard() {
           )}
         </AnimatePresence>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 ${isAdmin ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-4 mt-5`}>
           <SummaryCard tone="yellow" label={t('dash.totalStudents')} sub={t('dash.allBranchesSub')} value={d.loading ? null : String(d.totalStudents)} Icon={UsersThree} />
           <SummaryCard tone="blue" label={t('dash.feesCollected')} sub={t('dash.thisMonth')} value={d.loading ? null : formatCompact(d.feesThisMonth)} prefix="TSh" Icon={Wallet} />
           <SummaryCard tone="purple" label={t('dash.outstanding')} sub={t('dash.allBranchesSub')} value={d.loading ? null : formatCompact(d.outstanding)} prefix="TSh" Icon={ClockCountdown} />
+          {isAdmin && <SummaryCard tone="dark" label={t('dash.totalBalance')} sub={t('dash.allTime')} value={d.loading ? null : formatCompact(d.totalBalance)} prefix="TSh" Icon={Bank} />}
         </div>
 
         <div className="mt-7">
@@ -317,23 +318,24 @@ function Th({ children, className = '' }: { children: React.ReactNode; className
 }
 
 function SummaryCard({ tone, label, sub, value, prefix, Icon }: {
-  tone: 'yellow' | 'blue' | 'purple'; label: string; sub: string; value: string | null; prefix?: string; Icon: React.ComponentType<{ size?: number }>
+  tone: 'yellow' | 'blue' | 'purple' | 'dark'; label: string; sub: string; value: string | null; prefix?: string; Icon: React.ComponentType<{ size?: number }>
 }) {
-  const bg = { yellow: 'bg-accent-yellow', blue: 'bg-accent-blue', purple: 'bg-accent-purple' }[tone]
+  const dark = tone === 'dark'
+  const bg = { yellow: 'bg-accent-yellow', blue: 'bg-accent-blue', purple: 'bg-accent-purple', dark: 'bg-primary' }[tone]
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }} className={`relative rounded-[18px] p-[18px] min-h-[114px] flex flex-col justify-between ${bg}`}>
       <div>
-        <div className="text-[12px] font-bold text-black/[0.62]">{label}</div>
-        <div className="text-[10.5px] font-semibold text-black/[0.5] mt-0.5">{sub}</div>
+        <div className={`text-[12px] font-bold ${dark ? 'text-white/70' : 'text-black/[0.62]'}`}>{label}</div>
+        <div className={`text-[10.5px] font-semibold mt-0.5 ${dark ? 'text-white/50' : 'text-black/[0.5]'}`}>{sub}</div>
       </div>
       {value === null ? (
-        <Skeleton className="h-7 w-20 bg-black/10" />
+        <Skeleton className={`h-7 w-20 ${dark ? 'bg-white/15' : 'bg-black/10'}`} />
       ) : (
-        <div className="text-[27px] font-extrabold tracking-[-0.5px] text-ink">
-          {prefix && <small className="text-[14px] font-bold text-black/[0.55] mr-0.5">{prefix}</small>}{value}
+        <div className={`text-[27px] font-extrabold tracking-[-0.5px] ${dark ? 'text-on-primary' : 'text-ink'}`}>
+          {prefix && <small className={`text-[14px] font-bold mr-0.5 ${dark ? 'text-white/55' : 'text-black/[0.55]'}`}>{prefix}</small>}{value}
         </div>
       )}
-      <div className="absolute right-4 bottom-4 w-[30px] h-[30px] rounded-full bg-white/70 grid place-items-center text-ink"><Icon size={15} /></div>
+      <div className={`absolute right-4 bottom-4 w-[30px] h-[30px] rounded-full grid place-items-center ${dark ? 'bg-white/15 text-white' : 'bg-white/70 text-ink'}`}><Icon size={15} /></div>
     </motion.div>
   )
 }

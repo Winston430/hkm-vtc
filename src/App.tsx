@@ -6,6 +6,7 @@ import { I18nProvider } from './lib/i18n'
 import { ToastProvider } from './lib/toast'
 import { BusyProvider } from './lib/busy'
 import ProtectedRoute from './components/ProtectedRoute'
+import AdminRoute from './components/AdminRoute'
 import { OfflineBanner } from './components/OfflineBanner'
 import AppShell from './layouts/AppShell'
 import Login from './features/auth/Login'
@@ -16,7 +17,8 @@ import RegisterStudent from './features/students/RegisterStudent'
 import StudentDetail from './features/students/StudentDetail'
 import Courses from './features/courses/Courses'
 import Branches from './features/branches/Branches'
-import Agents from './features/agents/Agents'
+import Staff from './features/staff/Staff'
+import Expenses from './features/expenses/Expenses'
 import Payments from './features/payments/Payments'
 import Reports from './features/reports/Reports'
 import Settings from './features/settings/Settings'
@@ -45,20 +47,23 @@ export default function App() {
                   </ProtectedRoute>
                 }
               >
+                {/* both roles */}
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/students" element={<StudentsList />} />
                 <Route path="/students/new" element={<RegisterStudent />} />
                 <Route path="/students/:id" element={<StudentDetail />} />
-                <Route path="/courses" element={<Courses />} />
-                <Route path="/branches" element={<Branches />} />
-                <Route path="/agents" element={<Agents />} />
                 <Route path="/payments" element={<Payments />} />
                 <Route path="/reports" element={<Reports />} />
+                <Route path="/expenses" element={<Expenses />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="*" element={<NotFound />} />
-                {/* courses, branches, agents, payments — coming next */}
-              </Route>
 
+                {/* admin only — hard-guarded so an agent can never fall through */}
+                <Route path="/courses" element={<AdminRoute><Courses /></AdminRoute>} />
+                <Route path="/branches" element={<AdminRoute><Branches /></AdminRoute>} />
+                <Route path="/staff" element={<AdminRoute><Staff /></AdminRoute>} />
+
+                <Route path="*" element={<NotFound />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </AuthProvider>

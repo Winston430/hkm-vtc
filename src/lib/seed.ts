@@ -22,7 +22,7 @@ const SEED_COURSES = [
 
 const SEED_BRANCHES = [
   { name: 'Babati', location: 'Babati, Manyara', phone: '0676 178 042' },
-  { name: 'Arusha', location: 'Arusha', phone: '' },
+  { name: 'Magugu', location: 'Magugu, Manyara', phone: '' },
 ]
 
 export async function seedCatalog(): Promise<void> {
@@ -33,7 +33,7 @@ export async function seedCatalog(): Promise<void> {
   const batch = writeBatch(db)
   SEED_COURSES.forEach((c) => {
     const ref = doc(collection(db, 'courses'))
-    batch.set(ref, { ...c, active: true, createdAt: Date.now() })
+    batch.set(ref, { ...c, durationValue: c.durationMonths, durationUnit: 'months', active: true, createdAt: Date.now() })
   })
   SEED_BRANCHES.forEach((b) => {
     const ref = doc(collection(db, 'branches'))

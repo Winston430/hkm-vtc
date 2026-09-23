@@ -41,6 +41,7 @@ export interface DashboardData {
   loading: boolean
   totalStudents: number
   feesThisMonth: number
+  totalBalance: number
   outstanding: number
   recent: RecentRow[]
   popularCourses: CoursePopularity[]
@@ -95,6 +96,8 @@ export function useDashboardData(role: Role, branchId: string | null): Dashboard
   const feesThisMonth = payments
     .filter((p) => p.createdAt >= monthStart)
     .reduce((s, p) => s + p.amount, 0)
+
+  const totalBalance = payments.reduce((s, p) => s + p.amount, 0)
 
   const outstanding = enrollments
     .filter((e) => e.status === 'active')
@@ -156,6 +159,7 @@ export function useDashboardData(role: Role, branchId: string | null): Dashboard
     loading: !(ready.s && ready.e && ready.p),
     totalStudents: students.length,
     feesThisMonth,
+    totalBalance,
     outstanding,
     recent,
     popularCourses,
