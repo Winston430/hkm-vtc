@@ -156,23 +156,26 @@ export default function Reports() {
         {isAdmin && branches.length > 0 && (<div className="w-[190px]"><Dropdown value={branchId} onChange={setBranchId} options={[{ value: 'all', label: t('payments.allBranches') }, ...branches.map((b) => ({ value: b.id, label: b.name }))]} /></div>)}
       </div>
 
-      {/* period selector */}
-      <div className="flex flex-wrap items-center gap-3 mb-5">
-        <span className="text-[11px] font-bold text-ink-muted">{t('reports.period')}</span>
-        <div className="inline-flex bg-surface-soft rounded-[20px] p-1">{periods.map((p) => (<button key={p.key} onClick={() => setPeriod(p.key)} className={`px-3.5 py-1.5 rounded-[16px] text-[12px] font-bold transition ${period === p.key ? 'bg-surface text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]' : 'text-ink-muted hover:text-ink'}`}>{p.label}</button>))}</div>
-        {period === 'custom' && (<div className="flex items-center gap-2"><span className="text-[11px] font-bold text-ink-muted">{t('reports.from')}</span><input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className={dateInput} /><span className="text-[11px] font-bold text-ink-muted">{t('reports.to')}</span><input type="date" value={to} onChange={(e) => setTo(e.target.value)} className={dateInput} /></div>)}
-      </div>
+      {/* analytics — admin only. Agents get statements only. */}
+      {isAdmin && (
+        <>
+          <div className="flex flex-wrap items-center gap-3 mb-5">
+            <span className="text-[11px] font-bold text-ink-muted">{t('reports.period')}</span>
+            <div className="inline-flex bg-surface-soft rounded-[20px] p-1">{periods.map((p) => (<button key={p.key} onClick={() => setPeriod(p.key)} className={`px-3.5 py-1.5 rounded-[16px] text-[12px] font-bold transition ${period === p.key ? 'bg-surface text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]' : 'text-ink-muted hover:text-ink'}`}>{p.label}</button>))}</div>
+            {period === 'custom' && (<div className="flex items-center gap-2"><span className="text-[11px] font-bold text-ink-muted">{t('reports.from')}</span><input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className={dateInput} /><span className="text-[11px] font-bold text-ink-muted">{t('reports.to')}</span><input type="date" value={to} onChange={(e) => setTo(e.target.value)} className={dateInput} /></div>)}
+          </div>
 
-      {isAdmin && <FinancialKpis start={range.start} end={range.end} buckets={buckets} branchId={scopeBranchId} />}
+          <FinancialKpis start={range.start} end={range.end} buckets={buckets} branchId={scopeBranchId} />
 
-      {/* charts */}
-      <SectionLabel>{t('reports.overview')}</SectionLabel>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <ChartCard title={t('reports.registrations')}><BarChart data={regData} color="var(--color-ink)" /></ChartCard>
-        <ChartCard title={t('reports.paymentStatus')} caption={t('reports.snapshot')}><div className="py-2"><DonutChart data={statusData} centerLabel={t('reports.studentsWord')} /></div></ChartCard>
-        <ChartCard title={t('reports.topCourses')} caption={t('reports.snapshot')}><HBarChart data={courseData} color="var(--color-accent-purple)" /></ChartCard>
-        {isAdmin && branches.length > 1 && <ChartCard title={t('reports.perBranch')} caption={t('reports.snapshot')}><HBarChart data={branchData} color="var(--color-accent-blue)" /></ChartCard>}
-      </div>
+          <SectionLabel>{t('reports.overview')}</SectionLabel>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <ChartCard title={t('reports.registrations')}><BarChart data={regData} color="var(--color-ink)" /></ChartCard>
+            <ChartCard title={t('reports.paymentStatus')} caption={t('reports.snapshot')}><div className="py-2"><DonutChart data={statusData} centerLabel={t('reports.studentsWord')} /></div></ChartCard>
+            <ChartCard title={t('reports.topCourses')} caption={t('reports.snapshot')}><HBarChart data={courseData} color="var(--color-accent-purple)" /></ChartCard>
+            {branches.length > 1 && <ChartCard title={t('reports.perBranch')} caption={t('reports.snapshot')}><HBarChart data={branchData} color="var(--color-accent-blue)" /></ChartCard>}
+          </div>
+        </>
+      )}
 
       {/* statements */}
       <SectionLabel>{t('reports.statements')}</SectionLabel>

@@ -58,7 +58,7 @@ export default function Expenses() {
     try {
       const branchId = isAdmin ? (form.branchId === 'general' ? null : form.branchId) : myBranch
       await addExpense({ title: form.title.trim(), amount: Number(form.amount), category: form.category.trim(), kind: 'expense', branchId, recordedBy: user?.uid ?? '' })
-      toast.success(t('exp.saved')); setFormOpen(false); setForm({ ...emptyForm, branchId: isAdmin ? 'general' : (myBranchId ?? '') })
+      toast.success(t('exp.saved')); setFormOpen(false); setForm({ ...emptyForm, branchId: isAdmin ? 'general' : (myBranch ?? '') })
     } catch { toast.error(t('exp.saveError')) } finally { setSaving(false) }
   }
   async function confirmDelete() { if (!deleting) return; try { await deleteExpense(deleting.id); toast.success(t('exp.deleted')); setDeleting(null) } catch { toast.error(t('exp.saveError')) } }

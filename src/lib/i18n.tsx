@@ -217,7 +217,7 @@ export const strings = {
   'courses.empty':            { en: 'No courses yet',                            sw: 'Hakuna kozi bado' },
   'courses.emptyHint':        { en: 'Add your first course to the catalog.',     sw: 'Ongeza kozi yako ya kwanza.' },
   'courses.installments':     { en: 'Installments',                              sw: 'Awamu' },
-  'courses.months':           { en: 'months',                                    sw: 'miezi' },
+  'courses.months':           { en: 'Months',                                    sw: 'Miezi' },
   'courses.month':            { en: 'month',                                     sw: 'mwezi' },
 
   // ---- branches screen ----
@@ -419,7 +419,6 @@ export const strings = {
   'unit.weeks':               { en: 'weeks',                                      sw: 'wiki' },
   'unit.week':                { en: 'week',                                       sw: 'wiki' },
   'courses.durationUnit':     { en: 'Unit',                                       sw: 'Kipimo' },
-  'courses.months':           { en: 'Months',                                     sw: 'Miezi' },
   'courses.weeks':            { en: 'Weeks',                                       sw: 'Wiki' },
 
   // ---- payment rework (min first payment) ----
