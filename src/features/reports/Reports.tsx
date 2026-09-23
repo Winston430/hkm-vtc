@@ -238,7 +238,7 @@ function FinancialKpis({ start, end, buckets, branchId }: { start: number; end: 
           </div>
         ))}
       </div>
-      <div className="mt-4"><ChartCard title={t('reports.cashflow')}><LineChart labels={buckets.map((b) => b.label)} series={[{ name: t('reports.income'), color: 'var(--color-success)', points: incomeSeries }, { name: t('reports.expenses'), color: 'var(--color-danger)', points: expenseSeries }]} formatValue={(n) => `TSh ${formatCompact(n)}`} /></ChartCard></div>
+      <div className="mt-4"><ChartCard title={t('reports.cashflow')}><LineChart labels={buckets.map((b) => b.label)} series={[{ name: t('reports.income'), color: 'var(--color-success)', points: incomeSeries }, { name: t('reports.expenses'), color: 'var(--color-danger)', points: expenseSeries }]} formatValue={(n: number) => `TSh ${formatCompact(n)}`} /></ChartCard></div>
     </div>
   )
 }
