@@ -538,6 +538,13 @@ export const strings = {
   'reports.snapshot':         { en: 'now',                                       sw: 'sasa' },
   'reports.noData':           { en: 'No data for this period',                   sw: 'Hakuna data kwa kipindi hiki' },
   'reports.studentsWord':     { en: 'students',                                  sw: 'wanafunzi' },
+  'reg.errName':              { en: 'Enter the full name in letters (e.g. Asha John Mushi).', sw: 'Andika jina kamili kwa herufi (mf. Asha John Mushi).' },
+  'reg.errPhone':             { en: 'Enter a valid phone, e.g. 0712 345 678.',    sw: 'Andika namba sahihi, mf. 0712 345 678.' },
+  'reg.errNida':              { en: 'NIDA must be 20 digits.',                    sw: 'NIDA lazima iwe tarakimu 20.' },
+  'reg.errTin':               { en: 'TIN must be 9 digits.',                      sw: 'TIN lazima iwe tarakimu 9.' },
+  'staff.you':                { en: 'You',                                        sw: 'Wewe' },
+  'staff.cantSelf':           { en: "You can't disable or remove your own account.", sw: 'Huwezi kuzuia au kuondoa akaunti yako mwenyewe.' },
+  'staff.lastAdmin':          { en: 'At least one active administrator is required.', sw: 'Angalau msimamizi mmoja anahitajika.' },
 } satisfies Record<string, Entry>
 
 export type StringKey = keyof typeof strings

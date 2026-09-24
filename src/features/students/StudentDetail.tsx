@@ -14,6 +14,7 @@ import { Skeleton } from '../../components/ui/skeleton'
 import { Wave } from '../../components/loading-ui/wave'
 import { formatMoney, formatDate } from '../../lib/format'
 import { printReceipt } from '../../lib/print'
+import { isPhone, isNida } from '../../lib/validate'
 
 const inputClass =
   'w-full text-[13px] font-medium text-ink bg-surface-soft rounded-md py-2.5 px-3 outline-none transition focus:bg-surface focus:shadow-[0_0_0_3px_rgba(23,23,23,0.07),inset_0_0_0_1.5px_rgba(23,23,23,0.12)]'
@@ -53,6 +54,9 @@ export default function StudentDetail() {
 
   async function save() {
     if (!student) return
+    if (!isPhone(form.phone)) { toast.error(t('reg.errPhone')); return }
+    if (form.nokPhone.trim() && !isPhone(form.nokPhone)) { toast.error(t('reg.errPhone')); return }
+    if (form.nida.trim() && !isNida(form.nida)) { toast.error(t('reg.errNida')); return }
     setSaving(true)
     try {
       await updateStudent(student.id, {

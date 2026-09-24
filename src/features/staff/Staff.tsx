@@ -24,6 +24,10 @@ export default function StaffScreen() {
   const toast = useToast()
   const { staff, loading } = useStaff()
   const { branches } = useBranches()
+  const meUid = user?.uid
+  const activeAdmins = staff.filter((x) => x.role === 'admin' && x.active).length
+  const isSelf = (s: Staff) => s.uid === meUid
+  const isLastActiveAdmin = (s: Staff) => s.role === 'admin' && s.active && activeAdmins <= 1
 
   const [formOpen, setFormOpen] = useState(false)
   const [form, setForm] = useState(emptyForm)
@@ -47,7 +51,16 @@ export default function StaffScreen() {
       toast.success(t('staff.created'), form.name.trim()); setFormOpen(false); setForm(emptyForm)
     } catch { toast.error(t('staff.createError')) } finally { setSaving(false) }
   }
-  async function toggle(s: Staff) { try { await setStaffActive(s.uid, !s.active) } catch { toast.error(t('detail.actionError')) } }
+  async function toggle(s: Staff) {
+    if (isSelf(s)) { toast.error(t('staff.cantSelf')); return }
+    if (s.active && isLastActiveAdmin(s)) { toast.error(t('staff.lastAdmin')); return }
+    try { await setStaffActive(s.uid, !s.active) } catch { toast.error(t('detail.actionError')) }
+  }
+  function askRemove(s: Staff) {
+    if (isSelf(s)) { toast.error(t('staff.cantSelf')); return }
+    if (isLastActiveAdmin(s)) { toast.error(t('staff.lastAdmin')); return }
+    setRemovingStaff(s)
+  }
   async function confirmRemove() { if (!removingStaff) return; setBusy(true); try { await removeStaff(removingStaff.uid); toast.success(t('staff.removed')); setRemovingStaff(null) } catch { toast.error(t('detail.actionError')) } finally { setBusy(false) } }
   async function recordPay() {
     if (!paying || Number(payForm.amount) <= 0) return
@@ -77,8 +90,14 @@ export default function StaffScreen() {
               </div>
               <div className="flex gap-1.5 mt-4 pt-4 border-t border-hair">
                 <button onClick={() => setPaying(s)} className="flex-1 inline-flex items-center justify-center gap-1.5 bg-surface-soft hover:bg-hover rounded-[20px] py-2 text-[11.5px] font-bold text-ink-secondary transition"><Money size={13} /> {t('staff.pay')}</button>
-                <button onClick={() => toggle(s)} className="w-9 h-9 rounded-[20px] bg-surface-soft hover:bg-hover grid place-items-center text-ink-secondary transition" title={s.active ? t('staff.disable') : t('staff.enable')}>{s.active ? <Prohibit size={15} /> : <CheckCircle size={15} />}</button>
-                <button onClick={() => setRemovingStaff(s)} className="w-9 h-9 rounded-[20px] bg-surface-soft hover:bg-hover grid place-items-center text-danger transition"><Trash size={15} /></button>
+                {isSelf(s) ? (
+                  <span className="inline-flex items-center px-3 rounded-[20px] bg-surface-soft text-[11px] font-bold text-ink-muted">{t('staff.you')}</span>
+                ) : (
+                  <>
+                    <button onClick={() => toggle(s)} disabled={s.active && isLastActiveAdmin(s)} className="w-9 h-9 rounded-[20px] bg-surface-soft hover:bg-hover grid place-items-center text-ink-secondary transition disabled:opacity-40" title={s.active ? t('staff.disable') : t('staff.enable')}>{s.active ? <Prohibit size={15} /> : <CheckCircle size={15} />}</button>
+                    <button onClick={() => askRemove(s)} disabled={isLastActiveAdmin(s)} className="w-9 h-9 rounded-[20px] bg-surface-soft hover:bg-hover grid place-items-center text-danger transition disabled:opacity-40"><Trash size={15} /></button>
+                  </>
+                )}
               </div>
             </motion.div>
           ))}

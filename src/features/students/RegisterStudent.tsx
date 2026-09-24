@@ -10,6 +10,7 @@ import { UploadError, TimeoutError } from '../../lib/async'
 import { useCourses, useBranches } from '../../lib/services/catalog'
 import { registerStudent, courseCode, MIN_FIRST_PAYMENT } from '../../lib/services/students'
 import { durationLabel } from '../../lib/course'
+import { isFullName, isPhone, isNida, isTin } from '../../lib/validate'
 import { formatMoney } from '../../lib/format'
 import { Wave } from '../../components/loading-ui/wave'
 import { Dropdown } from '../../components/ui/Dropdown'
@@ -19,6 +20,9 @@ const inputClass =
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (<div><label className="block text-[12px] font-bold mb-[7px] text-ink">{label}</label>{children}</div>)
+}
+function FieldError({ children }: { children: React.ReactNode }) {
+  return <div className="text-[10.5px] font-semibold text-danger mt-1.5">{children}</div>
 }
 const stepVariants = {
   enter: (d: number) => ({ opacity: 0, x: d > 0 ? 28 : -28 }),
@@ -61,13 +65,18 @@ export default function RegisterStudent() {
     () => branches.find((b) => b.id === branchId) ?? (isAgent ? { id: profile?.branchId ?? '', name: profile?.branchId ?? '' } : undefined),
     [branches, branchId, isAgent, profile]
   )
+  const nameOk = isFullName(fullName)
+  const phoneOk = isPhone(phone)
+  const nokPhoneOk = isPhone(nokPhone)
+  const nidaOk = !nida.trim() || isNida(nida)
+  const tinOk = !tin.trim() || isTin(tin)
   const amt = Number(amount) || 0
   const balanceAfter = course ? Math.max(0, course.price - amt) : 0
   const amountValid = amt >= MIN_FIRST_PAYMENT
 
   const STEPS = [t('reg.step.personal'), t('reg.step.course'), t('reg.step.payment'), t('reg.step.confirm')]
   const canNext =
-    step === 0 ? Boolean(fullName.trim() && phone.trim() && residence.trim() && nokName.trim() && nokRel.trim() && nokPhone.trim())
+    step === 0 ? Boolean(nameOk && phoneOk && residence.trim() && nokName.trim() && nokRel.trim() && nokPhoneOk && nidaOk && tinOk)
     : step === 1 ? Boolean(courseId && branchId)
     : step === 2 ? Boolean(amountValid && bankRef.trim() && course)
     : true
@@ -135,18 +144,18 @@ export default function RegisterStudent() {
                   </div>
                   <div className="flex-1">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      <Field label={t('reg.fullName')}><input value={fullName} onChange={(e) => setFullName(e.target.value)} className={inputClass} /></Field>
+                      <Field label={t('reg.fullName')}><input value={fullName} onChange={(e) => setFullName(e.target.value)} className={inputClass} />{fullName.trim() && !nameOk && <FieldError>{t('reg.errName')}</FieldError>}</Field>
                       <Field label={t('reg.gender')}><Dropdown value={gender} onChange={setGender} placeholder={t('reg.genderPh')} options={[{ value: 'Male', label: t('reg.male') }, { value: 'Female', label: t('reg.female') }]} /></Field>
-                      <Field label={t('reg.phone')}><input value={phone} onChange={(e) => setPhone(e.target.value)} className={inputClass} /></Field>
-                      <Field label={t('reg.nida')}><input value={nida} onChange={(e) => setNida(e.target.value)} className={inputClass} /></Field>
-                      <Field label={t('reg.tin')}><input value={tin} onChange={(e) => setTin(e.target.value)} className={inputClass} /></Field>
+                      <Field label={t('reg.phone')}><input value={phone} onChange={(e) => setPhone(e.target.value)} inputMode="tel" placeholder="0712 345 678" className={inputClass} />{phone.trim() && !phoneOk && <FieldError>{t('reg.errPhone')}</FieldError>}</Field>
+                      <Field label={t('reg.nida')}><input value={nida} onChange={(e) => setNida(e.target.value)} inputMode="numeric" className={inputClass} />{nida.trim() && !nidaOk && <FieldError>{t('reg.errNida')}</FieldError>}</Field>
+                      <Field label={t('reg.tin')}><input value={tin} onChange={(e) => setTin(e.target.value)} inputMode="numeric" className={inputClass} />{tin.trim() && !tinOk && <FieldError>{t('reg.errTin')}</FieldError>}</Field>
                       <Field label={t('reg.residence')}><input value={residence} onChange={(e) => setResidence(e.target.value)} className={inputClass} /></Field>
                     </div>
                     <div className="text-[12px] font-bold mt-6 mb-3 text-ink">{t('reg.nok')}</div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <Field label={t('reg.nokName')}><input value={nokName} onChange={(e) => setNokName(e.target.value)} className={inputClass} /></Field>
                       <Field label={t('reg.nokRelationship')}><input value={nokRel} onChange={(e) => setNokRel(e.target.value)} className={inputClass} /></Field>
-                      <Field label={t('reg.nokPhone')}><input value={nokPhone} onChange={(e) => setNokPhone(e.target.value)} className={inputClass} /></Field>
+                      <Field label={t('reg.nokPhone')}><input value={nokPhone} onChange={(e) => setNokPhone(e.target.value)} inputMode="tel" placeholder="0712 345 678" className={inputClass} />{nokPhone.trim() && !nokPhoneOk && <FieldError>{t('reg.errPhone')}</FieldError>}</Field>
                     </div>
                   </div>
                 </div>
